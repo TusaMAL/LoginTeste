@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
+import { Platform } from 'ionic-angular';
+import { Facebook } from '@ionic-native/facebook';
 
 
 @Injectable()
@@ -9,8 +11,12 @@ export class AuthProvider {
 
   authState: any = null;
 
-  constructor(private afAuth: AngularFireAuth,
-              private db: AngularFireDatabase) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private db: AngularFireDatabase,
+    private platform: Platform,
+    private fb: Facebook
+  ) {
 
             this.afAuth.authState.subscribe((auth) => {
               this.authState = auth
@@ -60,9 +66,28 @@ export class AuthProvider {
     return this.socialSignIn(provider);
   }
 
-  facebookLogin() {
-    const provider = new firebase.auth.FacebookAuthProvider()
-    return this.socialSignIn(provider);
+  facebookLogin(permissions: string[]) {
+    if (this.platform.is('cordova')) {
+      //pra fazer login nativo no plugin do facebook
+      //Passando parametros pedidos no login.ts
+      return this.fb.login(permissions).then(res => {
+        const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+        return this.afAuth.auth.signInWithCredential(facebookCredential).then(dados => {
+          this.authState = dados;
+        });
+      }).catch(error =>{
+        console.log(error);
+      })
+    }
+    else {
+      return this.afAuth.auth
+        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        .then(success => {
+          this.authState = success;
+        }).catch(error =>{
+          console.log(error);
+        });
+    }
   }
 
   twitterLogin(){

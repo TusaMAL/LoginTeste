@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LoginPage } from '../login/login';
+import { AuthProvider } from '../../providers/auth/auth';
 
 /**
  * Generated class for the ContaPage page.
@@ -15,14 +17,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ContaPage {
   
-  _equipe: any = "Ave";
-  user: any = {
-    email: "ave",
-    displayName: "ave"
-  }
+  
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private authProvider: AuthProvider
   ) {
   
   }
@@ -31,4 +31,9 @@ export class ContaPage {
     console.log('ionViewDidLoad ContaPage');
   }
 
+  signOut(){
+    //Volta para a pagina de login
+    this.authProvider.signOut()
+    this.navCtrl.parent.parent.setRoot(LoginPage);
+  }
 }

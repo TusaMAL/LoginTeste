@@ -1,3 +1,14 @@
 page-corrida {
-
+    #running{
+        background-image: url('../assets/img/corrida.jpg');
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: 100% 100%;
+        width: 100%;
+        height: 100%;
+    }
+    //Tira o scroll da pagina
+    ::-webkit-scrollbar { 
+        display: none; 
+        } 
 }

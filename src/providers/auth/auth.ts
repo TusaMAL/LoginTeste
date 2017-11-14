@@ -17,11 +17,10 @@ export class AuthProvider {
     private platform: Platform,
     private fb: Facebook
   ) {
-
-            this.afAuth.authState.subscribe((auth) => {
-              this.authState = auth
-            });
-          }
+    this.afAuth.authState.subscribe((auth) => {
+      this.authState = auth
+    });
+  }
 
   // Returns true if user is logged in
   get authenticated(): boolean {

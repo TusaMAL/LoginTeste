@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+      <ion-title>Conta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #conta id="conta" padding>
+      <ion-list>
+          
+          <ion-item>
+              <ion-label stacked>Nome</ion-label>
+              <ion-input type="text" value="{{user.displayName}}" disabled></ion-input>
+          </ion-item>
+          
+          <ion-item>
+              <ion-label stacked>E-mail</ion-label>
+              <ion-input type="email" value="{{user.email}}" disabled></ion-input>
+          </ion-item>
+          
+          <ion-item>
+              <ion-label stacked>Equipe (opcional)</ion-label>
+              <ion-input type="text" value="{{_equipe}}" disabled></ion-input>
+          </ion-item>
+      </ion-list>
+      <div>
+          <button ion-button block color="verde" (click)="paginaEquipes()">Equipe</button>
+          <button ion-button block color="laranja" (click)="signOut()">Sair</button>
+      </div>
+  </div>
+</ion-content>

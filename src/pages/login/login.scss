@@ -1,8 +1,8 @@
 page-login{
-    .botao-facebook{
+    .botao-googleplus{
         position: absolute;
         left: 0;
-        top: 85%;
+        top: 65%;
         width: 100%;
         text-align: center;
     }
@@ -10,6 +10,13 @@ page-login{
         position: absolute;
         left: 0;
         top: 75%;
+        width: 100%;
+        text-align: center;
+    }
+    .botao-facebook{
+        position: absolute;
+        left: 0;
+        top: 85%;
         width: 100%;
         text-align: center;
     }

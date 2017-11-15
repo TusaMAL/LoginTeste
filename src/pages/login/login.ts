@@ -16,6 +16,22 @@ export class LoginPage {
   ) {
 
   }
+  googleLogin(){
+    let loading = this.miscProvider.createLoading('Entrando...');
+    this.authProvider.googleLogin().then(()=>{
+      if(this.authProvider.authenticated)
+      {
+        this.navCtrl.setRoot('ContaPage');
+        loading.dismiss();
+      }
+      else{
+        loading.dismiss();
+      }
+    }).catch(error => {
+      console.log(error)
+     loading.dismiss()}
+    );
+  }
   facebookLogin(){
     let loading = this.miscProvider.createLoading('Entrando...');
     this.authProvider.facebookLogin().then(()=>{
@@ -25,10 +41,12 @@ export class LoginPage {
         loading.dismiss();
       }
       else{
-        this.miscProvider.createAlert("Erro!", null, "Erro ao fazer login com o facebook");
         loading.dismiss();
       }
-    });
+    }).catch(error => {
+      console.log(error)
+     loading.dismiss()}
+    );
   }
   twitterLogin(){
     let loading = this.miscProvider.createLoading('Entrando...');
@@ -39,9 +57,11 @@ export class LoginPage {
         loading.dismiss();
       }
       else{
-        this.miscProvider.createAlert("Erro!", null, "Erro ao fazer login com o twitter");
         loading.dismiss();
       }
-    })
+    }).catch(error => {
+        console.log(error)
+       loading.dismiss()}
+      );
   }
 }

@@ -89,7 +89,7 @@
     <engine name="android" spec="~6.3.0" />
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="4cb501becf4a6e94ad79e81c8bb0f9163dacb983" />
-        <variable name="TWITTER_KEY" value="89dhiEqidexD63Hn9OctVbuLs" />
-        <variable name="TWITTER_SECRET" value="RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1" />
     </plugin>
+    <preference name="TwitterConsumerKey" value="89dhiEqidexD63Hn9OctVbuLs" />
+    <preference name="TwitterConsumerSecret" value="RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1" />
 </widget>

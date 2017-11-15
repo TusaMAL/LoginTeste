@@ -1,4 +1,5 @@
-##Twitter
+
+#Twitter
 
 `ionic cordova plugin add twitter-connect-plugin --variable FABRIC_KEY=yourkey`
 

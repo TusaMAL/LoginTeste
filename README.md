@@ -1,3 +1,6 @@
+# Working social login
+
+Social login working may have some bugs to fix but at least is working on Android and Windows (from ionic serve -l)
 
 ## Twitter
 
@@ -14,3 +17,11 @@
 `npm install --save @ionic-native/facebook`
 
 ### Tutorial: https://ionicthemes.com/tutorials/about/ionic2-facebook-login
+
+## Google+
+
+`ionic cordova plugin add cordova-plugin-googleplus --variable REVERSED_CLIENT_ID=myreversedclientid`
+
+`npm install --save @ionic-native/google-plus`
+
+### Tutorial: https://ionicthemes.com/tutorials/about/ionic2-google-login 

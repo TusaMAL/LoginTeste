@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "5.0.1",
     "@ionic-native/core": "4.4.0",
     "@ionic-native/facebook": "^4.4.0",
+    "@ionic-native/google-plus": "^4.4.2",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",
     "@ionic-native/twitter-connect": "^4.4.0",
@@ -30,6 +31,7 @@
     "cordova-android": "6.3.0",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-facebook4": "^1.9.1",
+    "cordova-plugin-googleplus": "^5.1.1",
     "cordova-plugin-ionic-webview": "^1.1.11",
     "cordova-plugin-splashscreen": "^4.0.3",
     "cordova-plugin-statusbar": "^2.3.0",
@@ -65,6 +67,9 @@
         "FABRIC_KEY": "4cb501becf4a6e94ad79e81c8bb0f9163dacb983",
         "TWITTER_KEY": "89dhiEqidexD63Hn9OctVbuLs",
         "TWITTER_SECRET": "RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.643431688408-husi79dg7chqcm2verd4q11rn92bt7i9"
       }
     },
     "platforms": [

@@ -6,6 +6,7 @@ import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { MiscProvider } from '../misc/misc';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 
 @Injectable()
@@ -19,6 +20,7 @@ export class AuthProvider {
     private platform: Platform,
     private fb: Facebook,
     private tw: TwitterConnect,
+    private gplus: GooglePlus,
     private miscProvider: MiscProvider
   ) {
     this.afAuth.authState.subscribe((auth) => {
@@ -64,11 +66,21 @@ export class AuthProvider {
     return this.socialSignIn(provider);
   }
 
-  googleLogin() {
+  googleLogin() : Promise<void>{
     //Requires ionic plugin
     //Google+ - https://ionicframework.com/docs/native/google-plus/
     if (this.platform.is('cordova')){
-
+      return this.gplus.login({
+        'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+        'webClientId' : '661419602371-i320jkptuosn161qsnpe74rbror9kkqa.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+        'offline': true
+      }).then(success =>{
+        const googleCredential = firebase.auth.GoogleAuthProvider.credential(success.idToken);
+        return this.nativeSignIn(googleCredential);
+      }).catch(error => {
+        console.log(error);
+        this.miscProvider.createAlert('Error when trying to login', 'Code: ' + error.code, 'Message: ' + error.message
+      )});
     }
     else{
       const provider = new firebase.auth.GoogleAuthProvider()
@@ -112,6 +124,7 @@ export class AuthProvider {
     }
   }
 
+  //Used for facebook and twitter
   private nativeSignIn(credential) {
     return this.afAuth.auth.signInWithCredential(credential).then(success => {
       //Saving response to authState to perform validations

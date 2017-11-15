@@ -12,6 +12,7 @@ import { LoginPage } from '../pages/login/login';
 //Native
 import { Facebook } from '@ionic-native/facebook';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 //Provider
 import { AuthProvider } from '../providers/auth/auth';
@@ -58,7 +59,8 @@ export const firebaseConfig = {
     FacebookProvider,
     MiscProvider,
     Facebook,
-    TwitterConnect
+    TwitterConnect,
+    GooglePlus
   ]
 })
 export class AppModule {}

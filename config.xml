@@ -76,6 +76,9 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
+    <preference name="TwitterConsumerKey" value="89dhiEqidexD63Hn9OctVbuLs" />
+    <preference name="TwitterConsumerSecret" value="RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1" />
+    <engine name="android" spec="6.3.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
@@ -86,10 +89,12 @@
         <variable name="APP_NAME" value="Teste Login" />
     </plugin>
     <plugin name="cordova-plugin-statusbar" spec="^2.3.0" />
-    <engine name="android" spec="~6.3.0" />
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="4cb501becf4a6e94ad79e81c8bb0f9163dacb983" />
+        <variable name="TWITTER_KEY" value="89dhiEqidexD63Hn9OctVbuLs" />
+        <variable name="TWITTER_SECRET" value="RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1" />
     </plugin>
-    <preference name="TwitterConsumerKey" value="89dhiEqidexD63Hn9OctVbuLs" />
-    <preference name="TwitterConsumerSecret" value="RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="643431688408-hb2lv1maap5fbccf7i73quviufaudctr.apps.googleusercontent.com" />
+    </plugin>
 </widget>

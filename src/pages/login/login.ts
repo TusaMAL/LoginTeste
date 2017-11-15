@@ -30,4 +30,18 @@ export class LoginPage {
       }
     });
   }
+  twitterLogin(){
+    let loading = this.miscProvider.createLoading('Entrando...');
+    this.authProvider.twitterLogin().then(() =>{
+      if(this.authProvider.authenticated)
+      {
+        this.navCtrl.setRoot('ContaPage');
+        loading.dismiss();
+      }
+      else{
+        this.miscProvider.createAlert("Erro!", null, "Erro ao fazer login com o twitter");
+        loading.dismiss();
+      }
+    })
+  }
 }

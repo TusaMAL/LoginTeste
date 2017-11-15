@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
+import { TwitterConnect } from '@ionic-native/twitter-connect';
 
 
 @Injectable()
@@ -15,7 +16,8 @@ export class AuthProvider {
     private afAuth: AngularFireAuth,
     private db: AngularFireDatabase,
     private platform: Platform,
-    private fb: Facebook
+    private fb: Facebook,
+    private tw: TwitterConnect
   ) {
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth
@@ -78,12 +80,8 @@ export class AuthProvider {
           this.authState = success;
           //(Optional) Creating or updating user on firebase
           this.db.list('users').update(success.providerData[0].uid, success.providerData[0]);
-        }).catch(error =>{
-          console.log(error);
-        });
-      }).catch(error =>{
-        console.log(error);
-      });
+        }).catch(error => console.log(error));
+      }).catch(error => console.log(error));
     }
     else {
       return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
@@ -92,15 +90,32 @@ export class AuthProvider {
           this.authState = success;
           //(Optional) Creating or updating user on firebase
           this.db.list('users').update(this.authState.user.providerData[0].uid, this.authState.user.providerData[0]);
-        }).catch(error =>{
-          console.log(error);
-        });
+        }).catch(error => console.log(error));
     }
   }
 
-  twitterLogin(){
-    const provider = new firebase.auth.TwitterAuthProvider()
-    return this.socialSignIn(provider);
+  twitterLogin(): Promise<void>{
+    if(this.platform.is('cordova'))
+    {
+      return this.tw.login().then(response => {
+        const twitterCredential = firebase.auth.TwitterAuthProvider.credential(response.token, response.secret);
+    
+      return this.afAuth.auth.signInWithCredential(twitterCredential).then(success => {
+          //Saving response to authState to perform validations
+          this.authState = success;
+          //(Optional) Creating or updating user on firebase
+          this.db.list('users').update(this.authState.user.providerData[0].uid, this.authState.user.providerData[0]);
+        }, error => console.log("Error connecting to twitter: ", error));
+      }, error => console.log("Error connecting to twitter: ", error));
+    }
+    else {
+      return this.afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()).then(success => {
+        //Saving response to authState to perform validations
+        this.authState = success;
+        //(Optional) Creating or updating user on firebase
+        this.db.list('users').update(this.authState.user.providerData[0].uid, this.authState.user.providerData[0]);
+      }, error => console.log("Error connecting to twitter: ", error));
+    }
   }
 
   private socialSignIn(provider) {

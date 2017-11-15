@@ -1,6 +1,7 @@
-# Ionic3 Working social login
+# Ionic3 Working social login + Firebase
 
-Social login working may have some bugs to fix but at least is working on Android and Windows (from ionic serve -l)
+Social login working may have some bugs to fix but at least is working on Android and Windows (from ionic serve -l) and inserting users
+data on firebase.
 
 ## Twitter
 

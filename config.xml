@@ -95,6 +95,6 @@
         <variable name="TWITTER_SECRET" value="RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1" />
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="643431688408-hb2lv1maap5fbccf7i73quviufaudctr.apps.googleusercontent.com" />
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.643431688408-husi79dg7chqcm2verd4q11rn92bt7i9" />
     </plugin>
 </widget>

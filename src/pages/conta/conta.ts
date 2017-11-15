@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/auth/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { MiscProvider } from '../../providers/misc/misc';
 
 /**
  * Generated class for the ContaPage page.
@@ -25,7 +26,8 @@ export class ContaPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     private authProvider: AuthProvider,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private miscProvider: MiscProvider
   ) {
     if(this.authProvider.authenticated){
       this.user = this.authProvider.currentUser.providerData[0];
@@ -36,7 +38,14 @@ export class ContaPage {
   }
 
   signOut(){
+    let loading = this.miscProvider.createLoading('Saindo...');
     //Volta para a pagina de login
-    this.authProvider.signOut().then(success => this.navCtrl.setRoot(LoginPage));
+    this.authProvider.signOut().then(success => {
+      this.navCtrl.setRoot(LoginPage)
+      loading.dismiss();
+    }).catch(error => {
+      console.log(error);
+      loading.dismiss();
+    });
   }
 }

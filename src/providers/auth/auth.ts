@@ -183,8 +183,26 @@ export class AuthProvider {
 
 
   //// Sign Out ////
+  //TODO maybe have a better way to verify the provider for loggingout
   signOut(): Promise<void> {
-    return this.afAuth.auth.signOut();
+    if(this.platform.is('cordova'))
+    {
+    let providerId = this.currentUser.providerData[0].providerId
+      if(providerId === 'google.com'){
+        this.gplus.logout();
+        return this.afAuth.auth.signOut();
+        }
+      else if(providerId == 'facebook.com'){
+        this.fb.logout();
+        return this.afAuth.auth.signOut();
+        }
+      else if(providerId === 'twitter.com'){
+        this.tw.logout();
+        return this.afAuth.auth.signOut();
+        }
+      }else{
+      return this.afAuth.auth.signOut();
+    }
   }
 
 

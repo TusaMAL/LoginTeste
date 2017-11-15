@@ -10,7 +10,6 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 
 //Native
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Facebook } from '@ionic-native/facebook';
 
 //Provider
@@ -25,12 +24,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyC92arwDt9Tfdm5hDY1OiPRXnMOPi9lue4",
-  authDomain: "unimed-experienc-1507038363160.firebaseapp.com",
-  databaseURL: "https://unimed-experienc-1507038363160.firebaseio.com",
-  projectId: "unimed-experienc-1507038363160",
-  storageBucket: "unimed-experienc-1507038363160.appspot.com",
-  messagingSenderId: "398287542219"
+  apiKey: "AIzaSyDhlsHLhn7P-MDpqru1nSVXirKSSq4GgWc",
+  authDomain: "teste-login-379e6.firebaseapp.com",
+  databaseURL: "https://teste-login-379e6.firebaseio.com",
+  projectId: "teste-login-379e6",
+  storageBucket: "teste-login-379e6.appspot.com",
+  messagingSenderId: "661419602371"
 };
 
 @NgModule({
@@ -57,9 +56,7 @@ export const firebaseConfig = {
     AuthProvider,
     FacebookProvider,
     MiscProvider,
-    ScreenOrientation,
     Facebook,
-    
   ]
 })
 export class AppModule {}

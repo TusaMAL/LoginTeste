@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AuthProvider } from '../providers/auth/auth';
 @Component({
   templateUrl: 'app.html'
@@ -16,18 +15,12 @@ export class MyApp {
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
-    screenOrientation: ScreenOrientation,
     authProvider: AuthProvider
   ) {
     platform.ready().then(() => {
-      if(platform.is('windows'))
-      {
-        //Trava a tela do dispositivo em modo retrato
-        screenOrientation.lock("portrait-primary");
-      }
       authProvider.currentUserObservable.subscribe(user => {
         if(user !== null){
-        this.rootPage = 'TabsPage';
+        this.rootPage = 'ContaPage';
         splashScreen.hide();
         }
         else{

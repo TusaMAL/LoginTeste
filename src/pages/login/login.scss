@@ -1,17 +1,17 @@
 page-login{
-    .botao-login{
+    .botao-facebook{
         position: absolute;
         left: 0;
         top: 85%;
         width: 100%;
         text-align: center;
     }
-    //coloca o fundo da pagina como o da imagem
-    ion-content{
-        background-image: url('../assets/img/home.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
+    .botao-twitter{
+        position: absolute;
+        left: 0;
+        top: 75%;
+        width: 100%;
+        text-align: center;
     }
     //Tira o scroll da pagina
     ::-webkit-scrollbar { 

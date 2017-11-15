@@ -16,16 +16,12 @@ export class LoginPage {
   ) {
 
   }
-  tabsPage(){
-    this.navCtrl.setRoot('TabsPage');
-  }
-  loginFacebook(){
+  facebookLogin(){
     let loading = this.miscProvider.createLoading('Entrando...');
-    let permissions = ['email', 'public_profile', 'user_posts'];
-    this.authProvider.facebookLogin(permissions).then(()=>{
+    this.authProvider.facebookLogin().then(()=>{
       if(this.authProvider.authenticated)
       {
-        this.navCtrl.setRoot('TabsPage');
+        this.navCtrl.setRoot('ContaPage');
         loading.dismiss();
       }
       else{

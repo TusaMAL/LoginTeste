@@ -18,7 +18,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class ContaPage {
   
-  user: any;
+  user: any = null;
   equipe: any = null;
 
   constructor(
@@ -27,19 +27,16 @@ export class ContaPage {
     private authProvider: AuthProvider,
     private db: AngularFireDatabase
   ) {
-    this.user = this.authProvider.currentUser.providerData[0];
-    this.db.object(`usuarios/${this.user.uid}/nomeEquipe`).valueChanges().subscribe((resp) => {
-      this.equipe = resp;
-    });
-  }
-
-  ionViewDidLoad() {
-    
+    if(this.authProvider.authenticated){
+      this.user = this.authProvider.currentUser.providerData[0];
+    }
+    // this.db.object(`usuarios/${this.user.uid}/nomeEquipe`).valueChanges().subscribe((resp) => {
+    //   this.equipe = resp;
+    // });
   }
 
   signOut(){
     //Volta para a pagina de login
-    this.authProvider.signOut()
-    this.navCtrl.parent.parent.setRoot(LoginPage);
+    this.authProvider.signOut().then(success => this.navCtrl.setRoot(LoginPage));
   }
 }

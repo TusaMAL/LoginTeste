@@ -65,24 +65,33 @@ export class AuthProvider {
     return this.socialSignIn(provider);
   }
 
-  facebookLogin(permissions: string[]) {
+  facebookLogin(): Promise<void>{
     if (this.platform.is('cordova')) {
-      //pra fazer login nativo no plugin do facebook
-      //Passando parametros pedidos no login.ts
+      //Native facebook login
+      //Facebook permissions: https://developers.facebook.com/docs/facebook-login/permissions
+      //These two doesn't need any permission granted from facebook.
+      let permissions = ['email', 'public_profile'];
       return this.fb.login(permissions).then(res => {
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-        return this.afAuth.auth.signInWithCredential(facebookCredential).then(dados => {
-          this.authState = dados;
+        return this.afAuth.auth.signInWithCredential(facebookCredential).then(success => {
+          // Saving response to authState to perform validations
+          this.authState = success;
+          //(Optional) Creating or updating user on firebase
+          this.db.list('users').update(success.providerData[0].uid, success.providerData[0]);
+        }).catch(error =>{
+          console.log(error);
         });
       }).catch(error =>{
         console.log(error);
-      })
+      });
     }
     else {
-      return this.afAuth.auth
-        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then(success => {
+          //Saving response to authState to perform validations
           this.authState = success;
+          //(Optional) Creating or updating user on firebase
+          this.db.list('users').update(this.authState.user.providerData[0].uid, this.authState.user.providerData[0]);
         }).catch(error =>{
           console.log(error);
         });
@@ -144,8 +153,8 @@ export class AuthProvider {
 
 
   //// Sign Out ////
-  signOut(): void {
-    this.afAuth.auth.signOut();
+  signOut(): Promise<void> {
+    return this.afAuth.auth.signOut();
   }
 
 

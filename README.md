@@ -1,4 +1,4 @@
-# Working social login
+# Ionic3 Working social login
 
 Social login working may have some bugs to fix but at least is working on Android and Windows (from ionic serve -l)
 

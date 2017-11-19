@@ -77,10 +77,7 @@ export class AuthProvider {
       }).then(success =>{
         const googleCredential = firebase.auth.GoogleAuthProvider.credential(success.idToken);
         return this.nativeSignIn(googleCredential);
-      }).catch(error => {
-        console.log(error);
-        this.miscProvider.createAlert('Error when trying to login', 'Code: ' + error.code, 'Message: ' + error.message
-      )});
+      });
     }
     else{
       const provider = new firebase.auth.GoogleAuthProvider()
@@ -114,7 +111,6 @@ export class AuthProvider {
     {
       return this.tw.login().then(response => {
         const twitterCredential = firebase.auth.TwitterAuthProvider.credential(response.token, response.secret);
-
         return this.nativeSignIn(twitterCredential);
       });
     }
@@ -130,7 +126,8 @@ export class AuthProvider {
       //Saving response to authState to perform validations
       this.authState = success;
       //(Optional) Creating or updating user on firebase
-      this.db.list('users').update(this.authState.providerData[0].uid, this.authState.providerData[0]);
+      //this.db.list('users').update(this.authState.providerData[0].uid, this.authState.providerData[0]);
+      this.updateUserData();
     }).catch(error => this.miscProvider.createAlert('Error when trying to login', 'Code: ' + error.code, 'Message: ' + error.message));
   }
 
@@ -138,7 +135,8 @@ export class AuthProvider {
     return this.afAuth.auth.signInWithPopup(provider).then((credential) =>  {
       this.authState = credential.user;
       //(Optional) Creating or updating user on firebase
-      this.db.list('users').update(this.authState.providerData[0].uid, this.authState.providerData[0]);
+      //this.db.list('users').update(this.authState.providerData[0].uid, this.authState.providerData[0]);
+      this.updateUserData();
     }).catch(error => this.miscProvider.createAlert('Error when trying to login', 'Code: ' + error.code, 'Message: ' + error.message));
   }
 
@@ -213,12 +211,12 @@ export class AuthProvider {
     let path = `users/${this.currentUserId}`; // Endpoint on firebase
     let data = {
                   email: this.authState.email,
-                  name: this.authState.displayName
+                  displayName: this.authState.displayName,
+                  photoURL: this.authState.photoURL,
+                  providerId: this.authState.providerData[0].providerId,
+                  providerUid: this.authState.providerData[0].uid
                 }
-
-    this.db.object(path).update(data)
-    .catch(error => console.log(error));
-
+    this.db.object(path).update(data).catch(error => this.miscProvider.createAlert('Error when saving data to database', 'Code: ' + error.code, 'Message: ' + error.message));;
   }
 
 

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/auth/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { MiscProvider } from '../../providers/misc/misc';
 
 /**
@@ -26,15 +25,24 @@ export class ContaPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     private authProvider: AuthProvider,
-    private db: AngularFireDatabase,
     private miscProvider: MiscProvider
   ) {
-    if(this.authProvider.authenticated){
+    try{
       this.user = this.authProvider.currentUser.providerData[0];
     }
+    catch(error){
+      console.log(error);
+    }
+
     // this.db.object(`usuarios/${this.user.uid}/nomeEquipe`).valueChanges().subscribe((resp) => {
     //   this.equipe = resp;
     // });
+  }
+
+  ionViewCanEnter()
+  {
+    return this.authProvider.authenticated;
+    
   }
 
   signOut(){

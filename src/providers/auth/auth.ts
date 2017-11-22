@@ -120,24 +120,28 @@ export class AuthProvider {
     }
   }
 
-  //Used for facebook and twitter
+  //Used for facebook, twitter and google
   private nativeSignIn(credential) {
     return this.afAuth.auth.signInWithCredential(credential).then(success => {
       //Saving response to authState to perform validations
       this.authState = success;
       //(Optional) Creating or updating user on firebase
-      //this.db.list('users').update(this.authState.providerData[0].uid, this.authState.providerData[0]);
       this.updateUserData();
-    }).catch(error => this.miscProvider.createAlert('Error when trying to login', 'Code: ' + error.code, 'Message: ' + error.message));
+    }).catch(error => {
+      console.log(error);
+      this.miscProvider.createAlert('Error when trying to login', 'Code: ' + error.code, 'Message: ' + error.message);
+    });
   }
 
   private socialSignIn(provider) {
     return this.afAuth.auth.signInWithPopup(provider).then((credential) =>  {
       this.authState = credential.user;
       //(Optional) Creating or updating user on firebase
-      //this.db.list('users').update(this.authState.providerData[0].uid, this.authState.providerData[0]);
       this.updateUserData();
-    }).catch(error => this.miscProvider.createAlert('Error when trying to login', 'Code: ' + error.code, 'Message: ' + error.message));
+    }).catch(error => {
+      console.log(error);
+      this.miscProvider.createAlert('Error when trying to login', 'Code: ' + error.code, 'Message: ' + error.message);
+    });
   }
 
 
@@ -185,21 +189,30 @@ export class AuthProvider {
   signOut(): Promise<void> {
     if(this.platform.is('cordova'))
     {
-    let providerId = this.currentUser.providerData[0].providerId
+    let providerId = this.currentUser.providerData[0].providerId;
       if(providerId === 'google.com'){
-        this.gplus.logout();
-        return this.afAuth.auth.signOut();
+        return this.gplus.logout().then(success => this.afAuth.auth.signOut()).catch(error => {
+          console.log(error);
+          this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
+        });
         }
-      else if(providerId == 'facebook.com'){
-        this.fb.logout();
-        return this.afAuth.auth.signOut();
+      else if(providerId === 'facebook.com'){
+        return this.fb.logout().then(success => this.afAuth.auth.signOut()).catch(error => {
+          console.log(error);
+          this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
+        });
         }
       else if(providerId === 'twitter.com'){
-        this.tw.logout();
-        return this.afAuth.auth.signOut();
+        return this.tw.logout().then(success => this.afAuth.auth.signOut()).catch(error => {
+          console.log(error);
+          this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
+        });
         }
       }else{
-      return this.afAuth.auth.signOut();
+      return this.afAuth.auth.signOut().catch(error => {
+        console.log(error);
+        this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
+      });
     }
   }
 
@@ -216,7 +229,10 @@ export class AuthProvider {
                   providerId: this.authState.providerData[0].providerId,
                   providerUid: this.authState.providerData[0].uid
                 }
-    this.db.object(path).update(data).catch(error => this.miscProvider.createAlert('Error when saving data to database', 'Code: ' + error.code, 'Message: ' + error.message));;
+    this.db.object(path).update(data).catch(error => {
+      console.log(error);
+      this.miscProvider.createAlert('Error when saving data to database', 'Code: ' + error.code, 'Message: ' + error.message);
+    });
   }
 
 

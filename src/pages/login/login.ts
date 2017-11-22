@@ -18,50 +18,23 @@ export class LoginPage {
   }
   googleLogin(){
     let loading = this.miscProvider.createLoading('Entrando...');
-    this.authProvider.googleLogin().then(()=>{
-      if(this.authProvider.authenticated)
-      {
+    this.authProvider.googleLogin().then(success=>{
         this.navCtrl.setRoot('ContaPage');
         loading.dismiss();
-      }
-      else{
-        loading.dismiss();
-      }
-    }).catch(error => {
-      console.log(error)
-     loading.dismiss()}
-    );
+      }).catch(error => loading.dismiss());
   }
   facebookLogin(){
     let loading = this.miscProvider.createLoading('Entrando...');
-    this.authProvider.facebookLogin().then(()=>{
-      if(this.authProvider.authenticated)
-      {
+    this.authProvider.facebookLogin().then(success =>{
         this.navCtrl.setRoot('ContaPage');
         loading.dismiss();
-      }
-      else{
-        loading.dismiss();
-      }
-    }).catch(error => {
-      console.log(error)
-     loading.dismiss()}
-    );
+      }).catch(error => loading.dismiss());
   }
   twitterLogin(){
     let loading = this.miscProvider.createLoading('Entrando...');
-    this.authProvider.twitterLogin().then(() =>{
-      if(this.authProvider.authenticated)
-      {
+    this.authProvider.twitterLogin().then(success =>{
         this.navCtrl.setRoot('ContaPage');
         loading.dismiss();
-      }
-      else{
-        loading.dismiss();
-      }
-    }).catch(error => {
-        console.log(error)
-       loading.dismiss()}
-      );
+      }).catch(error => loading.dismiss());
   }
 }

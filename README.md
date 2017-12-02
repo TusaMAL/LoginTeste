@@ -3,6 +3,10 @@
 Social login working may have some bugs to fix but at least is working on Android and Windows (from ionic serve -l) and inserting users
 data on firebase.
 
+## Email
+
+Email and Password (with validations) working too, planing on inserting password recovery on next update.
+
 ## Twitter
 
 `ionic cordova plugin add twitter-connect-plugin --variable FABRIC_KEY=yourkey`

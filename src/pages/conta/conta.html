@@ -9,29 +9,29 @@
     
       <ion-list>
         <ion-item *ngIf="user.photoURL != undefined">
-            <img text-center class="img" [src]="user.photoURL"/>
+            <img text-center class="img" [src]="user.providerData[0].photoURL"/>
         </ion-item>
         <ion-item>
             <ion-label stacked>Uid</ion-label>
-            <ion-input type="text" value="{{user.uid}}" disabled></ion-input>
+            <ion-input type="text" value="{{user.providerData[0].uid}}" disabled></ion-input>
         </ion-item>
         <ion-item *ngIf="user.displayName != undefined">
             <ion-label stacked>Name</ion-label>
-            <ion-input type="text" value="{{user.displayName}}" disabled></ion-input>
+            <ion-input type="text" value="{{user.providerData[0].displayName}}" disabled></ion-input>
         </ion-item>
         
         <ion-item *ngIf="user.email != undefined">
             <ion-label stacked>E-mail</ion-label>
-            <ion-input type="email" value="{{user.email}}" disabled></ion-input>
+            <ion-input type="email" value="{{user.providerData[0].email}}" disabled></ion-input>
         </ion-item>
         
         <ion-item>
             <ion-label stacked>Provider</ion-label>
-            <ion-input type="text" value="{{user.providerId}}" disabled></ion-input>
+            <ion-input type="text" value="{{user.providerData[0].providerId}}" disabled></ion-input>
         </ion-item>
       </ion-list>
       <div>
-          <button ion-button block (click)="signOut()">Logout</button>
+          <button ion-button icon-left block (click)="signOut()"><ion-icon name="log-out"></ion-icon> Logout</button>
       </div>
   </div>
 </ion-content>

@@ -19,17 +19,17 @@
 				<ion-input formControlName="userPassword" type="password" [(ngModel)]="user.password"></ion-input>
 		</ion-item>
 		<ion-label class="error-validator" text-center *ngIf="authForm.controls.userPassword.hasError('minlength') && authForm.controls.userPassword.touched">Your password must have 6 or more characters</ion-label>
-		<ion-label class="error-validator" text-center *ngIf="authForm.controls.userPassword.hasError('required') && authForm.controls.userPassword.touched">Sorry, password is required!</ion-label>
+		<ion-label class="error-validator" text-center *ngIf="authForm.controls.userPassword.hasError('required') && authForm.controls.userPassword.touched">Password is required!</ion-label>
 	</ion-list>
 	<div>
 		<ion-row>
 			<ion-col col-6>
-				<button ion-button block [disabled]="!authForm.valid" (click)="emailLogin(user)">Login</button>
+				<button ion-button icon-left block [disabled]="!authForm.valid" (click)="emailLogin(user)"><ion-icon name="log-in"></ion-icon> Login</button>
 			</ion-col>
 			<ion-col col-6>
-				<button ion-button block color="light" (click)="emailSignUp()">Register</button>
+				<button ion-button icon-left block color="light" (click)="emailSignUp()"><ion-icon name="create"></ion-icon> Register</button>
 			</ion-col>
-				<ion-label class="error-validator" text-center *ngIf="authForm.controls.userEmail.hasError('required') && authForm.controls.userEmail.touched">Sorry, field Email is required!</ion-label>
+				<ion-label class="error-validator" text-center *ngIf="authForm.controls.userEmail.hasError('required') && authForm.controls.userEmail.touched">Email is required!</ion-label>
 				
 		</ion-row>
 		<h4 text-center>Or sign-in with social media:</h4>

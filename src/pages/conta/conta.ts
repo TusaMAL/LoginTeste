@@ -27,21 +27,15 @@ export class ContaPage {
     private authProvider: AuthProvider,
     private miscProvider: MiscProvider
   ) {
-    try{
-      this.user = this.authProvider.currentUser.providerData[0];
-    }
-    catch(error){
-      console.log(error);
-    }
 
+    this.user = this.authProvider.currentUser;
     // this.db.object(`usuarios/${this.user.uid}/nomeEquipe`).valueChanges().subscribe((resp) => {
     //   this.equipe = resp;
     // });
   }
 
-  ionViewCanEnter()
-  {
-    return this.authProvider.authenticated;
+  ionViewCanEnter(){
+      return this.authProvider.authenticated;
   }
 
   signOut(){

@@ -192,37 +192,21 @@ export class AuthProvider {
   //// Sign Out ////
   //TODO maybe have a better way to verify the provider for loggingout
   signOut(): Promise<void> {
-  try{
-    if(this.platform.is('cordova'))
-    {
-    let providerId = this.currentUser.providerData[0].providerId;
-      if(providerId === 'google.com'){
-        return this.gplus.logout().then(success => this.afAuth.auth.signOut()).catch(error => {
-          console.log(error);
-          this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
-        });
-        }
-      else if(providerId === 'facebook.com'){
-        return this.fb.logout().then(success => this.afAuth.auth.signOut()).catch(error => {
-          console.log(error);
-          this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
-        });
-        }
-      else if(providerId === 'twitter.com'){
-        return this.tw.logout().then(success => this.afAuth.auth.signOut()).catch(error => {
-          console.log(error);
-          this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
-        });
-        }
+    return this.afAuth.auth.signOut().then(success => {
+      if(this.platform.is('cordova'))
+      {
+        let providerId = this.currentUser.providerData[0].providerId;
+        if(providerId === 'google.com'){
+          return this.gplus.disconnect();
+          }
+        else if(providerId === 'facebook.com'){
+          return this.fb.logout();
+          }
+        else if(providerId === 'twitter.com'){
+          return this.tw.logout();
+          }
       }
-  }catch(error){
-    console.log(error);
-  }finally{
-    return this.afAuth.auth.signOut().catch(error => {
-      console.log(error);
-      this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
     });
-  }
   }
 
 

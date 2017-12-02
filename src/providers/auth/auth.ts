@@ -7,6 +7,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { MiscProvider } from '../misc/misc';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { User } from '../../models/user';
 
 
 @Injectable()
@@ -156,8 +157,8 @@ export class AuthProvider {
   }
 
   //// Email/Password Auth ////
-  emailSignUp(email:string, password:string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+  emailSignUp(user: User) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
       .then((user) => {
         this.authState = user
         this.updateUserData()

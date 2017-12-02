@@ -42,7 +42,6 @@ export class ContaPage {
   ionViewCanEnter()
   {
     return this.authProvider.authenticated;
-    
   }
 
   signOut(){

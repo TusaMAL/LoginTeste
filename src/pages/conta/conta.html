@@ -8,19 +8,19 @@
   <div padding>
     
       <ion-list>
-        <ion-item>
+        <ion-item *ngIf="user.photoURL != undefined">
             <img text-center class="img" [src]="user.photoURL"/>
         </ion-item>
         <ion-item>
             <ion-label stacked>Uid</ion-label>
             <ion-input type="text" value="{{user.uid}}" disabled></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="user.displayName != undefined">
             <ion-label stacked>Name</ion-label>
             <ion-input type="text" value="{{user.displayName}}" disabled></ion-input>
         </ion-item>
         
-        <ion-item>
+        <ion-item *ngIf="user.email != undefined">
             <ion-label stacked>E-mail</ion-label>
             <ion-input type="email" value="{{user.email}}" disabled></ion-input>
         </ion-item>
@@ -31,7 +31,7 @@
         </ion-item>
       </ion-list>
       <div>
-          <button ion-button block color="laranja" (click)="signOut()">Logout</button>
+          <button ion-button block (click)="signOut()">Logout</button>
       </div>
   </div>
 </ion-content>

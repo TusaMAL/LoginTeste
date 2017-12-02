@@ -161,8 +161,10 @@ export class AuthProvider {
       .then((user) => {
         this.authState = user
         this.updateUserData()
-      })
-      .catch(error => console.log(error));
+      }).catch(error => {
+        console.log(error);
+        this.miscProvider.createAlert('Error when trying to Sign-Up', 'Code: ' + error.code, 'Message: ' + error.message);
+       });
   }
 
   emailLogin(email:string, password:string) {
@@ -170,8 +172,10 @@ export class AuthProvider {
        .then((user) => {
          this.authState = user
          this.updateUserData()
-       })
-       .catch(error => console.log(error));
+       }).catch(error => {
+         console.log(error);
+         this.miscProvider.createAlert('Error when trying to Sign-In', 'Code: ' + error.code, 'Message: ' + error.message);
+        });
   }
 
   // Sends email allowing user to reset password
@@ -187,6 +191,7 @@ export class AuthProvider {
   //// Sign Out ////
   //TODO maybe have a better way to verify the provider for loggingout
   signOut(): Promise<void> {
+  try{
     if(this.platform.is('cordova'))
     {
     let providerId = this.currentUser.providerData[0].providerId;
@@ -208,12 +213,15 @@ export class AuthProvider {
           this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
         });
         }
-      }else{
-      return this.afAuth.auth.signOut().catch(error => {
-        console.log(error);
-        this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
-      });
-    }
+      }
+  }catch(error){
+    console.log(error);
+  }finally{
+    return this.afAuth.auth.signOut().catch(error => {
+      console.log(error);
+      this.miscProvider.createAlert('Error when trying to logout', 'Code: ' + error.code, 'Message: ' + error.message);
+    });
+  }
   }
 
 

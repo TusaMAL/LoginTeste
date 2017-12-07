@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="teste.login.felipe" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Login Test</name>
+<widget id="unimed.firestore.rp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Unimed FireStore</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -84,17 +84,17 @@
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.11" />
-    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
-        <variable name="APP_ID" value="371593849952287" />
-        <variable name="APP_NAME" value="Teste Login" />
-    </plugin>
     <plugin name="cordova-plugin-statusbar" spec="^2.3.0" />
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="4cb501becf4a6e94ad79e81c8bb0f9163dacb983" />
         <variable name="TWITTER_KEY" value="89dhiEqidexD63Hn9OctVbuLs" />
         <variable name="TWITTER_SECRET" value="RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1" />
     </plugin>
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="175431736384477" />
+        <variable name="APP_NAME" value="Unimed FireStore" />
+    </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.643431688408-husi79dg7chqcm2verd4q11rn92bt7i9" />
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.166242473013-6deneftre582lkd356gppf43g9umg0f" />
     </plugin>
 </widget>

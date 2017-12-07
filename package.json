@@ -37,7 +37,8 @@
     "cordova-plugin-statusbar": "^2.3.0",
     "cordova-plugin-whitelist": "^1.3.1",
     "es6-promise-plugin": "^4.1.1",
-    "firebase": "^4.6.2",
+    "firebase": "^4.7.0",
+    "firebase-admin": "^5.4.0",
     "ionic-angular": "3.9.2",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
@@ -47,6 +48,7 @@
     "zone.js": "0.8.18"
   },
   "devDependencies": {
+    "@angular/cli": "^1.6.0",
     "@ionic/app-scripts": "3.1.2",
     "typescript": "2.4.2"
   },
@@ -59,8 +61,8 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-facebook4": {
-        "APP_ID": "371593849952287",
-        "APP_NAME": "Teste Login"
+        "APP_ID": "175431736384477",
+        "APP_NAME": "Unimed FireStore"
       },
       "cordova-plugin-statusbar": {},
       "twitter-connect-plugin": {
@@ -69,7 +71,7 @@
         "TWITTER_SECRET": "RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1"
       },
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.643431688408-husi79dg7chqcm2verd4q11rn92bt7i9"
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.166242473013-6deneftre582lkd356gppf43g9umg0f"
       }
     },
     "platforms": [

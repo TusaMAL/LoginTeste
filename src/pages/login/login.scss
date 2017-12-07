@@ -20,12 +20,41 @@ page-login{
         width: 100%;
         text-align: center;
     }
-    //Tira o scroll da pagina
-    ::-webkit-scrollbar { 
-    display: none; 
-    }   
     .error-validator{
         border-color: #ff0000;
         color: #ff0000;
       }
+    .botao-login-facebook{
+        position: absolute;
+        left: 0;
+        top: 70%;
+        width: 100%;
+        text-align: center;
+    }
+    .botao-login-google{
+      position: absolute;
+      left: 0;
+      top: 80%;
+      width: 100%;
+      text-align: center;
+  }
+    .botao-login-twitter{
+      position: absolute;
+      left: 0;
+      top: 90%;
+      width: 100%;
+      text-align: center;
+  }
+
+    //coloca o fundo da pagina como o da imagem
+    ion-content{
+        background-image: url('../assets/img/home.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+    //Tira o scroll da pagina
+    ::-webkit-scrollbar {
+    display: none;
+    }
 }

@@ -16,7 +16,7 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'conta.html',
 })
 export class ContaPage {
-
+asd
   constructor(
     private _authProvider: AuthProvider
   ) {

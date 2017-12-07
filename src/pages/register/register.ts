@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { User } from '../../models/user';
 import { AuthProvider } from '../../providers/auth/auth';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginPage } from '../login/login';
-import { MiscProvider } from '../../providers/misc/misc';
 
 /**
  * Generated class for the RegisterPage page.
@@ -27,8 +27,7 @@ export class RegisterPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public formBuilder: FormBuilder,
-    public miscProvider: MiscProvider,
-    private authProvider: AuthProvider,
+    private _authProvider: AuthProvider,
   ) {
     //Form Validations
     this.registerForm = formBuilder.group({
@@ -39,7 +38,7 @@ export class RegisterPage {
   emailSignUp(user: User){
     if(this.registerForm.valid)
     {
-      this.authProvider.emailSignUp(user).then(success =>{
+      this._authProvider.emailSignUp(user).then(success =>{
         this.navCtrl.setRoot(LoginPage);
       });
     }

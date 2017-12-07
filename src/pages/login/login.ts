@@ -17,8 +17,8 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
-    private authProvider: AuthProvider,
-    private miscProvider: MiscProvider
+    private _authProvider: AuthProvider,
+    private _miscProvider: MiscProvider
   ) {
     //Form Validations
     this.authForm = formBuilder.group({
@@ -28,9 +28,9 @@ export class LoginPage {
   }
   //Login with email
   emailLogin(user: User){
-    let loading = this.miscProvider.createLoading('Entrando...');
+    let loading = this._miscProvider.createLoading('Entrando...');
     if(this.authForm.valid){
-    this.authProvider.emailLogin(user.email, user.password).then(success =>{
+    this._authProvider.emailLogin(user.email, user.password).then(success =>{
       this.navCtrl.setRoot('ContaPage');
       loading.dismiss();
     }).catch(error => loading.dismiss());
@@ -42,24 +42,24 @@ export class LoginPage {
   }
   //call googlelogin from authProvider
   googleLogin(){
-    let loading = this.miscProvider.createLoading('Entrando...');
-    this.authProvider.googleLogin().then(success=>{
+    let loading = this._miscProvider.createLoading('Entrando...');
+    this._authProvider.googleLogin().then(success=>{
         this.navCtrl.setRoot('ContaPage');
         loading.dismiss();
       }).catch(error => loading.dismiss());
   }
-  //call facebooklogin from authProvider
+  //call facebooklogin from _authProvider
   facebookLogin(){
-    let loading = this.miscProvider.createLoading('Entrando...');
-    this.authProvider.facebookLogin().then(success =>{
+    let loading = this._miscProvider.createLoading('Entrando...');
+    this._authProvider.facebookLogin().then(success =>{
         this.navCtrl.setRoot('ContaPage');
         loading.dismiss();
       }).catch(error => loading.dismiss());
   }
-  //call twitterlogin from authProvider
+  //call twitterlogin from _authProvider
   twitterLogin(){
-    let loading = this.miscProvider.createLoading('Entrando...');
-    this.authProvider.twitterLogin().then(success =>{
+    let loading = this._miscProvider.createLoading('Entrando...');
+    this._authProvider.twitterLogin().then(success =>{
         this.navCtrl.setRoot('ContaPage');
         loading.dismiss();
       }).catch(error => loading.dismiss());

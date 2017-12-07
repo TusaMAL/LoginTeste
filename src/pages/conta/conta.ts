@@ -18,7 +18,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 export class ContaPage {
 
   constructor(
-    private authProvider: AuthProvider
+    private _authProvider: AuthProvider
   ) {
     // this.db.object(`usuarios/${this.user.uid}/nomeEquipe`).valueChanges().subscribe((resp) => {
     //   this.equipe = resp;
@@ -26,7 +26,7 @@ export class ContaPage {
   }
 
   ionViewCanEnter() { 
-      return this.authProvider.authenticated;
+      return this._authProvider.authenticated;
   }
 
 }

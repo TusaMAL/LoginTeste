@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { GooglePlus } from '@ionic-native/google-plus';
+import { AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
-
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase';
 import { MiscProvider } from '../misc/misc';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { User } from '../../models/user';
-import { AngularFirestore } from 'angularfire2/firestore';
 
 
 @Injectable()
@@ -18,7 +17,7 @@ export class AuthProvider {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private _dbfs: AngularFirestore,
+    private db: AngularFireDatabase,
     private platform: Platform,
     private fb: Facebook,
     private tw: TwitterConnect,
@@ -172,8 +171,8 @@ export class AuthProvider {
   emailLogin(email:string, password:string) {
      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
        .then((user) => {
-         this.authState = user;
-         this.updateUserData();
+         this.authState = user
+         this.updateUserData()
        }).catch(error => {
          console.log(error);
          this.miscProvider.createAlert('Error when trying to Sign-In', 'Code: ' + error.code, 'Message: ' + error.message);
@@ -213,11 +212,9 @@ export class AuthProvider {
 
   //// Helpers ////
   private updateUserData(): void {
-
-
   // Writes user name and email to realtime db
   // useful if your app displays information about users or for admin features
-    let path = `${this.currentUserId}`; // Endpoint on firebase
+    let path = `users/${this.currentUserId}`; // Endpoint on firebase
     let data = {
                   email: this.authState.email,
                   displayName: this.authState.displayName,
@@ -225,8 +222,7 @@ export class AuthProvider {
                   providerId: this.authState.providerData[0].providerId,
                   providerUid: this.authState.providerData[0].uid
                 }
-    let addUser = this._dbfs.collection('users').doc(path);
-    addUser.set(data).catch(error => {
+    this.db.object(path).update(data).catch(error => {
       console.log(error);
       this.miscProvider.createAlert('Error when saving data to database', 'Code: ' + error.code, 'Message: ' + error.message);
     });

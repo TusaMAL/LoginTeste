@@ -5,4 +5,5 @@ export class User {
     photoURL: string;
     providerId: string;
     providerUid: string;
+    providerData: string[];
 }

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { ContaComponent } from './conta/conta';
+import { IonicModule } from 'ionic-angular';
 @NgModule({
 	declarations: [ContaComponent],
-	imports: [],
+	imports: [IonicModule],
 	exports: [ContaComponent]
 })
 export class ComponentsModule {}

@@ -15,24 +15,19 @@
 
 <ion-content padding>
   
-  <ion-list [formGroup]="registerForm">
+  <ion-list [formGroup]="registerForm" (ngSubmit)="onSubmit2()" >
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input formControlName="userEmail" type="text" [(ngModel)]="user.email"></ion-input>
+      <ion-input formControlName="userEmail" type="text"></ion-input>
     </ion-item>
-    <ion-label class="error-validator" text-center *ngIf="registerForm.controls.userEmail.hasError('email') && registerForm.controls.userEmail.touched">Sorry, your email is badly formated!</ion-label>
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input formControlName="userPassword" type="password" [(ngModel)]="user.password"></ion-input>
+      <ion-input formControlName="userPassword" type="password"></ion-input>
     </ion-item>
-    <ion-label class="error-validator" text-center *ngIf="registerForm.controls.userPassword.hasError('minlength') && registerForm.controls.userPassword.touched">Your password must have 6 or more characters</ion-label>
-    <ion-label class="error-validator" text-center *ngIf="registerForm.controls.userPassword.hasError('minlength') && registerForm.controls.userPassword.touched">Your password must have 32 or less characters</ion-label>
-    <ion-label class="error-validator" text-center *ngIf="registerForm.controls.userPassword.hasError('required') && registerForm.controls.userPassword.touched">Password is required!</ion-label>
-  </ion-list>
+     </ion-list>
   <div>
     <ion-row>
-      <button ion-button block [disabled]="!registerForm.valid" (click)="emailSignUp(user)">Register</button>
+      <button ion-button block [disabled]="!this.registerForm.valid" (click)="onSubmit2()">Register</button>
     </ion-row>
-    <ion-label class="error-validator" text-center *ngIf="registerForm.controls.userEmail.hasError('required') && registerForm.controls.userEmail.touched">Email is required!</ion-label>
   </div>
 </ion-content>

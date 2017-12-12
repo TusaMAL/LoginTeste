@@ -3,8 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http'
 
 import { RegisterPage } from './register';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ComponentsModule } from './../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -12,9 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     IonicPageModule.forChild(RegisterPage),
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    ComponentsModule
   ],
 })
 export class RegisterPageModule {}

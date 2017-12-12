@@ -14,20 +14,46 @@
 
 
 <ion-content padding>
-  
-  <ion-list [formGroup]="registerForm" (ngSubmit)="onSubmit2()" >
+
+  <!-- Using Two different ways to perform validations -->
+  <ion-list [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input formControlName="userEmail" type="text"></ion-input>
+      <ion-label floating *ngIf="!requiredField('email') && !badlyFormated('email')">Email</ion-label>
+      <!-- validation on email Required -->
+      <ion-label floating *ngIf="requiredField('email')">
+        <!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
+        <error-feedback errorMsg="Email is required!" class="has-error"></error-feedback>
+      </ion-label>
+      <!-- validation on email badlyformated -->
+      <ion-label floating *ngIf="badlyFormated('email') && !requiredField('email')">
+        <!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
+        <error-feedback errorMsg="Email is badly formated!" class="has-error"></error-feedback>
+      </ion-label>
+      <ion-input formControlName="email" type="text"></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input formControlName="userPassword" type="password"></ion-input>
+      <ion-label floating *ngIf="!requiredField('password') && !registerForm.get('password').hasError('minlength') && !registerForm.get('password').hasError('maxlength')">Password</ion-label>
+      <ion-label floating *ngIf="requiredField('password')">
+        <!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
+        <error-feedback errorMsg="Password is required!" class="has-error"></error-feedback>
+      </ion-label>
+      <!-- registerForm.controls.password.hasError('minlength') && registerForm.controls.password.touched -->
+      <ion-label floating *ngIf="registerForm.get('password').hasError('minlength') ">
+        <!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
+        <error-feedback errorMsg="Password must have 6 or more characters!" class="has-error"></error-feedback>
+      </ion-label>
+      <ion-label floating *ngIf="registerForm.get('password').hasError('maxlength')">
+        <!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
+        <error-feedback errorMsg="Password must have 32 or less characters!" class="has-error"></error-feedback>
+      </ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
-     </ion-list>
+
+  </ion-list>
   <div>
     <ion-row>
-      <button ion-button block [disabled]="!this.registerForm.valid" (click)="onSubmit2()">Register</button>
+      <button ion-button block [disabled]="!registerForm.valid" (click)="onSubmit()">Register</button>
     </ion-row>
   </div>
 </ion-content>

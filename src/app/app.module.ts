@@ -6,9 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 
-//Paginas
-import { LoginPage } from '../pages/login/login';
-
 //Native
 import { Facebook } from '@ionic-native/facebook';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
@@ -22,7 +19,6 @@ import { MiscProvider } from '../providers/misc/misc';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { ComponentsModule } from '../components/components.module';
 
 
 export const firebaseConfig = {
@@ -36,21 +32,18 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    MyApp,
-    LoginPage
+    MyApp
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    ComponentsModule
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    LoginPage
+    MyApp
   ],
   providers: [
     StatusBar,

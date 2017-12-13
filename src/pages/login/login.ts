@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { IonicPage, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { MiscProvider } from '../../providers/misc/misc';
 
+@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -25,6 +26,7 @@ export class LoginPage {
       password: [null, Validators.compose([Validators.required, Validators.minLength(6)])]
     });
   }
+  
   //Login with email
   emailLogin() {
     if (this.authForm.valid) {
@@ -37,6 +39,7 @@ export class LoginPage {
       this.formFieldValidation(this.authForm);
     }
   }
+
   //To focus the required fields when form isn't valid
   formFieldValidation(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
@@ -93,3 +96,4 @@ export class LoginPage {
     return form.hasError('email') && (form.touched || form.dirty);
   }
 }
+

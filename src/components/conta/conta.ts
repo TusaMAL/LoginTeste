@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { MiscProvider } from './../../providers/misc/misc';
 import { User } from '../../models/user';
-import { NavController } from 'ionic-angular/navigation/nav-controller';
-import { LoginPage } from '../../pages/login/login';
+
 
 /**
  * Generated class for the ContaComponent component.
@@ -37,7 +37,7 @@ export class ContaComponent {
     let loading = this.miscProvider.createLoading('Saindo...');
     //Volta para a pagina de login
     this.authProvider.signOut().then(success => {
-      this.navCtrl.setRoot(LoginPage)
+      this.navCtrl.setRoot('LoginPage')
       loading.dismiss();
     }).catch(error => {
       console.log(error);

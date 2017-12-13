@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
-import { ContaComponent } from './conta/conta';
 import { IonicModule } from 'ionic-angular';
+
+//Components
+import { ContaComponent } from './conta/conta';
 import { ErrorFeedbackComponent } from './error-feedback/error-feedback';
+
 @NgModule({
 	declarations: [ContaComponent,
-    ErrorFeedbackComponent],
+		ErrorFeedbackComponent],
 	imports: [IonicModule],
 	exports: [ContaComponent,
-    ErrorFeedbackComponent]
+		ErrorFeedbackComponent]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

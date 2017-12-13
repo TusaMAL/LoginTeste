@@ -22,21 +22,21 @@ export class ContaComponent {
 
   constructor(
     public navCtrl: NavController,
-    private _authProvider: AuthProvider,
-    private _miscProvider: MiscProvider
+    private authProvider: AuthProvider,
+    private miscProvider: MiscProvider
   ) {
-    try{
-      this.user = this._authProvider.currentUser.providerData[0];
+    try {
+      this.user = this.authProvider.currentUser.providerData[0];
     }
-    catch(error){
+    catch (error) {
 
     }
   }
 
   signOut() {
-    let loading = this._miscProvider.createLoading('Saindo...');
+    let loading = this.miscProvider.createLoading('Saindo...');
     //Volta para a pagina de login
-    this._authProvider.signOut().then(success => {
+    this.authProvider.signOut().then(success => {
       this.navCtrl.setRoot(LoginPage)
       loading.dismiss();
     }).catch(error => {

@@ -24,8 +24,7 @@ page-login{
     ::-webkit-scrollbar { 
     display: none; 
     }   
-    .error-validator{
-        border-color: #ff0000;
+    .has-error{
         color: #ff0000;
-      }
+        }
 }

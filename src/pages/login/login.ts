@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
+
 import { AuthProvider } from '../../providers/auth/auth';
 import { MiscProvider } from '../../providers/misc/misc';
-import { User } from '../../models/user';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'page-login',
@@ -11,57 +11,85 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage {
 
-  user = {} as User;
   authForm: FormGroup;
 
   constructor(
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
-    private _authProvider: AuthProvider,
-    private _miscProvider: MiscProvider
+    private authProvider: AuthProvider,
+    private miscProvider: MiscProvider
   ) {
     //Form Validations
     this.authForm = formBuilder.group({
-      userEmail: ['', Validators.compose([Validators.required, Validators.email])],
-      userPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
-  });
+      email: [null, Validators.compose([Validators.required, Validators.email])],
+      password: [null, Validators.compose([Validators.required, Validators.minLength(6)])]
+    });
   }
   //Login with email
-  emailLogin(user: User){
-    let loading = this._miscProvider.createLoading('Entrando...');
-    if(this.authForm.valid){
-    this._authProvider.emailLogin(user.email, user.password).then(success =>{
+  emailLogin() {
+    if (this.authForm.valid) {
+      let loading = this.miscProvider.createLoading('Entrando...');
+      this.authProvider.emailLogin(this.authForm.value).then(success => {
+        this.navCtrl.setRoot('ContaPage');
+        loading.dismiss();
+      }).catch(error => loading.dismiss());
+    } else {
+      this.formFieldValidation(this.authForm);
+    }
+  }
+  //To focus the required fields when form isn't valid
+  formFieldValidation(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      control.markAsDirty();
+      //If the form has other objects inside it will validate the object fields too
+      if (control instanceof FormGroup) {
+        this.formFieldValidation(control);
+      }
+    })
+  }
+  //push to page Register
+  emailSignUp() {
+    this.navCtrl.push('RegisterPage');
+  }
+  //call googlelogin from authProvider
+  googleLogin() {
+    let loading = this.miscProvider.createLoading('Entrando...');
+    this.authProvider.googleLogin().then(success => {
       this.navCtrl.setRoot('ContaPage');
       loading.dismiss();
     }).catch(error => loading.dismiss());
-    }
   }
-  //push to page Register
-  emailSignUp(){
-    this.navCtrl.push("RegisterPage");
+  //call facebooklogin from authProvider
+  facebookLogin() {
+    let loading = this.miscProvider.createLoading('Entrando...');
+    this.authProvider.facebookLogin().then(success => {
+      this.navCtrl.setRoot('ContaPage');
+      loading.dismiss();
+    }).catch(error => loading.dismiss());
   }
-  //call googlelogin from authProvider
-  googleLogin(){
-    let loading = this._miscProvider.createLoading('Entrando...');
-    this._authProvider.googleLogin().then(success=>{
-        this.navCtrl.setRoot('ContaPage');
-        loading.dismiss();
-      }).catch(error => loading.dismiss());
+  //call twitterlogin from authProvider
+  twitterLogin() {
+    let loading = this.miscProvider.createLoading('Entrando...');
+    this.authProvider.twitterLogin().then(success => {
+      this.navCtrl.setRoot('ContaPage');
+      loading.dismiss();
+    }).catch(error => loading.dismiss());
   }
-  //call facebooklogin from _authProvider
-  facebookLogin(){
-    let loading = this._miscProvider.createLoading('Entrando...');
-    this._authProvider.facebookLogin().then(success =>{
-        this.navCtrl.setRoot('ContaPage');
-        loading.dismiss();
-      }).catch(error => loading.dismiss());
+
+  //Validations
+
+  //Return if the field is required, not valid and if is touched
+  requiredField(property: string) {
+    let form = this.authForm.get(property);
+
+    return form.hasError('required') && (form.touched || form.dirty);
   }
-  //call twitterlogin from _authProvider
-  twitterLogin(){
-    let loading = this._miscProvider.createLoading('Entrando...');
-    this._authProvider.twitterLogin().then(success =>{
-        this.navCtrl.setRoot('ContaPage');
-        loading.dismiss();
-      }).catch(error => loading.dismiss());
+
+  //To check the email format with angular Validator Regex
+  badlyFormated(property: string) {
+    let form = this.authForm.get(property);
+
+    return form.hasError('email') && (form.touched || form.dirty);
   }
 }

@@ -15,10 +15,10 @@ export class MiscProvider {
   ) {
   }
 
-  createLoading(msgCarregamento: string): Loading{
+  createLoading(msgCarregamento: string): Loading {
 
     //Cria a caixa de loading: http://ionicframework.com/docs/api/components/loading/LoadingController/
-      let loading: Loading = this.loadingCtrl.create({
+    let loading: Loading = this.loadingCtrl.create({
       content: msgCarregamento,
       spinner: 'bubbles',
     });
@@ -28,7 +28,7 @@ export class MiscProvider {
 
     return loading;
   }
-  createAlert( msgTitulo: string, msgSubTitulo: string, msgCorpo: string){
+  createAlert(msgTitulo: string, msgSubTitulo: string, msgCorpo: string) {
     let alert = this.alertCtrl.create({
       title: msgTitulo,
       subTitle: msgSubTitulo,

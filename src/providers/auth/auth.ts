@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase} from 'angularfire2/database';
+import { Platform } from 'ionic-angular';
+
+//Ionic Native
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { TwitterConnect } from '@ionic-native/twitter-connect';
+
+//Firebase
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
-import { Platform } from 'ionic-angular';
-import { Facebook } from '@ionic-native/facebook';
-import { TwitterConnect } from '@ionic-native/twitter-connect';
+
+//Providers
 import { MiscProvider } from '../misc/misc';
-import { GooglePlus } from '@ionic-native/google-plus';
+
+//Models
 import { User } from '../../models/user';
 
 
@@ -67,26 +75,30 @@ export class AuthProvider {
     return this.socialSignIn(provider);
   }
 
-  googleLogin() : Promise<void>{
+  googleLogin(): Promise<void> {
     //Requires ionic plugin
     //Google+ - https://ionicframework.com/docs/native/google-plus/
-    if (this.platform.is('cordova')){
+    if (this.platform.is('cordova')) {
       return this.gplus.login({
         'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-        'webClientId' : '661419602371-i320jkptuosn161qsnpe74rbror9kkqa.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+        /*
+          IMPORTANT TO PROPERLY LOGIN WITH GOOGLE+ YOU SHOULD USE YOUR WEBCLIENTID THAT YOU CAN GET FROM FIREBASE.
+          IF YOU DON`T CHANGE YOU WILL GET AN ERROR 10
+        */
+        'webClientId': '661419602371-i320jkptuosn161qsnpe74rbror9kkqa.apps.googleusercontent.com',
         'offline': true
-      }).then(success =>{
+      }).then(success => {
         const googleCredential = firebase.auth.GoogleAuthProvider.credential(success.idToken);
         return this.nativeSignIn(googleCredential);
       });
     }
-    else{
+    else {
       const provider = new firebase.auth.GoogleAuthProvider()
       return this.socialSignIn(provider);
     }
   }
 
-  facebookLogin(): Promise<void>{
+  facebookLogin(): Promise<void> {
     //Requires ionic plugin
     //Facebook - https://ionicframework.com/docs/native/facebook/
     if (this.platform.is('cordova')) {
@@ -105,11 +117,10 @@ export class AuthProvider {
     }
   }
 
-  twitterLogin(): Promise<void>{
+  twitterLogin(): Promise<void> {
     //Requires ionic plugin
     //Twitter - https://ionicframework.com/docs/native/twitter-connect/
-    if(this.platform.is('cordova'))
-    {
+    if (this.platform.is('cordova')) {
       return this.tw.login().then(response => {
         const twitterCredential = firebase.auth.TwitterAuthProvider.credential(response.token, response.secret);
         return this.nativeSignIn(twitterCredential);
@@ -135,7 +146,7 @@ export class AuthProvider {
   }
 
   private socialSignIn(provider) {
-    return this.afAuth.auth.signInWithPopup(provider).then((credential) =>  {
+    return this.afAuth.auth.signInWithPopup(provider).then((credential) => {
       this.authState = credential.user;
       //(Optional) Creating or updating user on firebase
       this.updateUserData();
@@ -149,11 +160,11 @@ export class AuthProvider {
   //// Anonymous Auth ////
   anonymousLogin() {
     return this.afAuth.auth.signInAnonymously()
-    .then((user) => {
-      this.authState = user
-      this.updateUserData()
-    })
-    .catch(error => console.log(error));
+      .then((user) => {
+        this.authState = user
+        this.updateUserData()
+      })
+      .catch(error => console.log(error));
   }
 
   //// Email/Password Auth ////
@@ -165,18 +176,18 @@ export class AuthProvider {
       }).catch(error => {
         console.log(error);
         this.miscProvider.createAlert('Error when trying to Sign-Up', 'Code: ' + error.code, 'Message: ' + error.message);
-       });
+      });
   }
 
-  emailLogin(email:string, password:string) {
-     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-       .then((user) => {
-         this.authState = user
-         this.updateUserData()
-       }).catch(error => {
-         console.log(error);
-         this.miscProvider.createAlert('Error when trying to Sign-In', 'Code: ' + error.code, 'Message: ' + error.message);
-        });
+  emailLogin(user: User) {
+    return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
+      .then((user) => {
+        this.authState = user
+        this.updateUserData()
+      }).catch(error => {
+        console.log(error);
+        this.miscProvider.createAlert('Error when trying to Sign-In', 'Code: ' + error.code, 'Message: ' + error.message);
+      });
   }
 
   // Sends email allowing user to reset password
@@ -193,18 +204,17 @@ export class AuthProvider {
   //TODO maybe have a better way to verify the provider for loggingout
   signOut(): Promise<void> {
     return this.afAuth.auth.signOut().then(success => {
-      if(this.platform.is('cordova'))
-      {
+      if (this.platform.is('cordova')) {
         let providerId = this.currentUser.providerData[0].providerId;
-        if(providerId === 'google.com'){
+        if (providerId === 'google.com') {
           return this.gplus.disconnect();
-          }
-        else if(providerId === 'facebook.com'){
+        }
+        else if (providerId === 'facebook.com') {
           return this.fb.logout();
-          }
-        else if(providerId === 'twitter.com'){
+        }
+        else if (providerId === 'twitter.com') {
           return this.tw.logout();
-          }
+        }
       }
     });
   }
@@ -212,16 +222,16 @@ export class AuthProvider {
 
   //// Helpers ////
   private updateUserData(): void {
-  // Writes user name and email to realtime db
-  // useful if your app displays information about users or for admin features
+    // Writes user name and email to realtime db
+    // useful if your app displays information about users or for admin features
     let path = `users/${this.currentUserId}`; // Endpoint on firebase
     let data = {
-                  email: this.authState.email,
-                  displayName: this.authState.displayName,
-                  photoURL: this.authState.photoURL,
-                  providerId: this.authState.providerData[0].providerId,
-                  providerUid: this.authState.providerData[0].uid
-                }
+      email: this.authState.email,
+      displayName: this.authState.displayName,
+      photoURL: this.authState.photoURL,
+      providerId: this.authState.providerData[0].providerId,
+      providerUid: this.authState.providerData[0].uid
+    }
     this.db.object(path).update(data).catch(error => {
       console.log(error);
       this.miscProvider.createAlert('Error when saving data to database', 'Code: ' + error.code, 'Message: ' + error.message);

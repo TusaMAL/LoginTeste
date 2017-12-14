@@ -23,10 +23,10 @@ export class LoginPage {
     //Form Validations
     this.authForm = formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.email])],
-      password: [null, Validators.compose([Validators.required, Validators.minLength(6)])]
+      password: [null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(32)])]
     });
   }
-  
+
   //Login with email
   emailLogin() {
     if (this.authForm.valid) {

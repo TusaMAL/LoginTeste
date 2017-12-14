@@ -1,28 +1,28 @@
 <div padding>
   
-    <ion-list>
-      <ion-item *ngIf="user.photoURL != undefined" >
-          <img text-center class="img" [src]="user.photoURL"/>
+    <ion-list *ngIf="user.providerData['0']">
+      <ion-item *ngIf="user.providerData['0'].photoURL" >
+          <img text-center class="img" [src]="user.providerData['0'].photoURL"/>
       </ion-item>
 
       <ion-item>
           <ion-label stacked>Uid</ion-label>
-          <ion-input type="text" [value]="user.uid" disabled></ion-input>
+          <ion-input type="text" [value]="user.providerData['0'].uid" disabled></ion-input>
       </ion-item>
 
-      <ion-item *ngIf="user.displayName" >
+      <ion-item *ngIf="user.providerData['0'].displayName">
           <ion-label stacked>Name</ion-label>
-          <ion-input type="text" [value]="user.displayName" disabled></ion-input>
+          <ion-input type="text" [value]="user.providerData['0'].displayName" disabled></ion-input>
       </ion-item>
       
-      <ion-item *ngIf="user.email" >
+      <ion-item *ngIf="user.providerData['0'].email" >
           <ion-label stacked>E-mail</ion-label>
-          <ion-input type="email" [value]="user.email" disabled></ion-input>
+          <ion-input type="email" [value]="user.providerData['0'].email" disabled></ion-input>
       </ion-item>
       
       <ion-item>
           <ion-label stacked>Provider</ion-label>
-          <ion-input type="text" [value]="user.providerId" disabled></ion-input>
+          <ion-input type="text" [value]="user.providerData['0'].providerId" disabled></ion-input>
       </ion-item>
     </ion-list>
     <div>

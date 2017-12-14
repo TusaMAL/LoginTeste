@@ -81,7 +81,7 @@ export class RegisterPage {
       this.formFieldValidation(this.registerForm);
     }
   }
-  //To focus the required fields when form isn't valid
+  //To give feedback to user, the required fields when form isn't valid
   formFieldValidation(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -17,15 +17,18 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class ContaPage {
   constructor(
-    private _authProvider: AuthProvider
+    private authProvider: AuthProvider,
+    private navCtrl: NavController
   ) {
     // this.db.object(`usuarios/${this.user.uid}/nomeEquipe`).valueChanges().subscribe((resp) => {
     //   this.equipe = resp;
     // });
   }
-
-  ionViewCanEnter() { 
-      return this._authProvider.authenticated;
+  ionViewCanEnter() {
+    if (this.authProvider.authenticated) {
+      return true;
+    }
+    this.navCtrl.setRoot('LoginPage');
+    return false;
   }
-
 }

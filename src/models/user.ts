@@ -5,5 +5,14 @@ export class User {
     photoURL: string;
     providerId: string;
     providerUid: string;
-    providerData: string[];
+    providerData: string;
+    constructor(
+      ) {
+        this.displayName = null;
+        this.email = null;
+        this.password = null;
+        this.photoURL = null;
+        this.providerId = null;
+        this.providerUid = null;
+      }
 }

@@ -25,24 +25,19 @@ export class ContaComponent {
     private authProvider: AuthProvider,
     private miscProvider: MiscProvider
   ) {
-    try {
-      this.user = this.authProvider.currentUser.providerData[0];
-    }
-    catch (error) {
-
-    }
+    this.user = new User();
+    this.user = this.authProvider.currentUser;
   }
 
   signOut() {
     let loading = this.miscProvider.createLoading('Saindo...');
     //Volta para a pagina de login
     this.authProvider.signOut().then(success => {
-      this.navCtrl.setRoot('LoginPage')
+      this.navCtrl.setRoot('LoginPage');
       loading.dismiss();
     }).catch(error => {
       console.log(error);
       loading.dismiss();
     });
   }
-
 }

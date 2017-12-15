@@ -25,7 +25,6 @@ export class ContaComponent {
     private authProvider: AuthProvider,
     private miscProvider: MiscProvider
   ) {
-    this.user = new User();
     this.user = this.authProvider.currentUser;
   }
 

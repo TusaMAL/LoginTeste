@@ -48,14 +48,14 @@ export class RegisterPage {
 
   //Return if the field is required, not valid and if is touched
   requiredField(property: string) {
-    let form = this.registerForm.get(property);
+    const form = this.registerForm.get(property);
 
     return form.hasError('required') && (form.touched || form.dirty);
   }
 
   //To check the email format with angular Validator Regex
   badlyFormated(property: string) {
-    let form = this.registerForm.get(property);
+    const form = this.registerForm.get(property);
 
     return form.hasError('email') && (form.touched || form.dirty);
   }
@@ -70,7 +70,7 @@ export class RegisterPage {
   //Creating user on firebase
   onSubmit() {
     if (this.registerForm.valid) {
-      let loading = this.miscProvider.createLoading('Creating...');
+      const loading = this.miscProvider.createLoading('Creating...');
       this.authProvider.emailSignUp(this.registerForm.value).then(success => {
         loading.dismiss();
       })

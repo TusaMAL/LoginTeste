@@ -16,7 +16,7 @@ export class MiscProvider {
   }
   //Ionic 3 loading controller docs http://ionicframework.com/docs/api/components/loading/LoadingController/
   createLoading(msgCarregamento: string): Loading {
-    let loading: Loading = this.loadingCtrl.create({
+    const loading: Loading = this.loadingCtrl.create({
       content: msgCarregamento,
       spinner: 'bubbles',
     });
@@ -28,7 +28,7 @@ export class MiscProvider {
   }
   //Ionic 3 alert controller https://ionicframework.com/docs/api/components/alert/AlertController/
   createAlert(msgTitulo: string, msgSubTitulo: string, msgCorpo: string) {
-    let alert = this.alertCtrl.create({
+    const alert = this.alertCtrl.create({
       title: msgTitulo,
       subTitle: msgSubTitulo,
       message: msgCorpo,

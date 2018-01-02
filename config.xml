@@ -18,7 +18,9 @@
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="loadUrlTimeoutValue" value="700000" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -78,7 +80,6 @@
     </platform>
     <preference name="TwitterConsumerKey" value="89dhiEqidexD63Hn9OctVbuLs" />
     <preference name="TwitterConsumerSecret" value="RIW0PakFULjPSrTojbQMUpCQ1cvV8qauhexRKe1ry5yyUfpkc1" />
-    <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
@@ -99,4 +100,5 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.643431688408-husi79dg7chqcm2verd4q11rn92bt7i9" />
     </plugin>
+    <engine name="android" spec="~6.3.0" />
 </widget>

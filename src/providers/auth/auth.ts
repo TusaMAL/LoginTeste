@@ -47,6 +47,13 @@ export class AuthProvider {
     return this.authenticated ? this.authState : null;
   }
 
+  currentProviderData(): User{
+    let user: User;
+    for(let data of this.currentUser.providerData){
+      return user = data;
+    }
+  }
+
   // Returns
   get currentUserObservable(): any {
     return this.afAuth.authState
@@ -105,7 +112,7 @@ export class AuthProvider {
       //Native facebook login
       //Facebook permissions: https://developers.facebook.com/docs/facebook-login/permissions
       //These two doesn't need any permission granted from facebook.
-      let permissions = ['email', 'public_profile'];
+      const permissions = ['email', 'public_profile'];
       return this.fb.login(permissions).then(res => {
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         return this.nativeSignIn(facebookCredential);
@@ -205,7 +212,7 @@ export class AuthProvider {
   signOut(): Promise<void> {
     return this.afAuth.auth.signOut().then(success => {
       if (this.platform.is('cordova')) {
-        let providerId = this.currentUser.providerData[0].providerId;
+        const providerId = this.currentUser.providerData[0].providerId;
         if (providerId === 'google.com') {
           return this.gplus.disconnect();
         }
@@ -224,8 +231,8 @@ export class AuthProvider {
   private updateUserData(): void {
     // Writes user name and email to realtime db
     // useful if your app displays information about users or for admin features
-    let path = `users/${this.currentUserId}`; // Endpoint on firebase
-    let data = {
+    const path = `users/${this.currentUserId}`; // Endpoint on firebase
+    const data = {
       email: this.authState.email,
       displayName: this.authState.displayName,
       photoURL: this.authState.photoURL,

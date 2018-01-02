@@ -1,40 +1,26 @@
-<!-- <ion-header>
-	<ion-navbar color="secondary">
-		<ion-title>
-			Unimed Experience
-		</ion-title>
-	</ion-navbar>
-</ion-header> -->
-
 <ion-content padding>
 	<h1 text-center>Teste Login</h1>
 	<ion-list [formGroup]="authForm" (ngSubmit)="emailLogin()">
 		<ion-item>
 			<ion-label floating *ngIf="!requiredField('email') && !badlyFormated('email')">Email</ion-label>
 			<ion-label floating *ngIf="requiredField('email')">
-				<!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
-				<error-feedback errorMsg="Email is required!" class="has-error"></error-feedback>
+				<p class="has-error">Email is required!</p>
 			</ion-label>
 			<ion-label floating *ngIf="badlyFormated('email') && !requiredField('email')">
-				<!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
-				<error-feedback errorMsg="Email is badly formated!" class="has-error"></error-feedback>
+				<p class="has-error">Email is badly formated</p>
 			</ion-label>
 			<ion-input formControlName="email" type="text"></ion-input>
 		</ion-item>
 		<ion-item>
 			<ion-label floating *ngIf="!requiredField('password') && !authForm.get('password').hasError('minlength') && !authForm.get('password').hasError('maxlength')">Password</ion-label>
 			<ion-label floating *ngIf="requiredField('password')">
-				<!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
-				<error-feedback errorMsg="Password is required!" class="has-error"></error-feedback>
+				<p class="has-error">Password is required</p>
 			</ion-label>
-			<!-- authForm.controls.password.hasError('minlength') && authForm.controls.password.touched -->
 			<ion-label floating *ngIf="authForm.get('password').hasError('minlength') ">
-				<!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
-				<error-feedback errorMsg="Password is too short!" class="has-error"></error-feedback>
+				<p class="has-error">Password is too short!</p>
 			</ion-label>
 			<ion-label floating *ngIf="authForm.get('password').hasError('maxlength')">
-				<!-- Using error-feedback component now it doesn't have any utility but i'll try to make it useful -->
-				<error-feedback errorMsg="Password is too long!" class="has-error"></error-feedback>
+				<p class="has-error">Password is too long!</p>
 			</ion-label>
 			<ion-input formControlName="password" type="password"></ion-input>
 		</ion-item>

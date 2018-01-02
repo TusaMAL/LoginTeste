@@ -21,11 +21,9 @@ export class MyApp {
       authProvider.currentUserObservable.subscribe(user => {
         if(user !== null){
         this.rootPage = 'ContaPage';
-        splashScreen.hide();
         }
         else{
           this.rootPage = 'LoginPage';
-          splashScreen.hide();
         }
       });
       // Okay, so the platform is ready and our plugins are available.

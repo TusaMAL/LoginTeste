@@ -30,7 +30,7 @@ export class LoginPage {
   //Login with email
   emailLogin() {
     if (this.authForm.valid) {
-      let loading = this.miscProvider.createLoading('Entrando...');
+      const loading = this.miscProvider.createLoading('Entrando...');
       this.authProvider.emailLogin(this.authForm.value).then(success => {
         this.navCtrl.setRoot('ContaPage');
         loading.dismiss();
@@ -57,7 +57,7 @@ export class LoginPage {
   }
   //call googlelogin from authProvider
   googleLogin() {
-    let loading = this.miscProvider.createLoading('Entrando...');
+    const loading = this.miscProvider.createLoading('Entrando...');
     this.authProvider.googleLogin().then(success => {
       this.navCtrl.setRoot('ContaPage');
       loading.dismiss();
@@ -65,7 +65,7 @@ export class LoginPage {
   }
   //call facebooklogin from authProvider
   facebookLogin() {
-    let loading = this.miscProvider.createLoading('Entrando...');
+    const loading = this.miscProvider.createLoading('Entrando...');
     this.authProvider.facebookLogin().then(success => {
       this.navCtrl.setRoot('ContaPage');
       loading.dismiss();
@@ -73,7 +73,7 @@ export class LoginPage {
   }
   //call twitterlogin from authProvider
   twitterLogin() {
-    let loading = this.miscProvider.createLoading('Entrando...');
+    const loading = this.miscProvider.createLoading('Entrando...');
     this.authProvider.twitterLogin().then(success => {
       this.navCtrl.setRoot('ContaPage');
       loading.dismiss();
@@ -84,14 +84,14 @@ export class LoginPage {
 
   //Return if the field is required, not valid and if is touched
   requiredField(property: string) {
-    let form = this.authForm.get(property);
+    const form = this.authForm.get(property);
 
     return form.hasError('required') && (form.touched || form.dirty);
   }
 
   //To check the email format with angular Validator Regex
   badlyFormated(property: string) {
-    let form = this.authForm.get(property);
+    const form = this.authForm.get(property);
 
     return form.hasError('email') && (form.touched || form.dirty);
   }

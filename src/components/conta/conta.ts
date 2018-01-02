@@ -25,11 +25,11 @@ export class ContaComponent {
     private authProvider: AuthProvider,
     private miscProvider: MiscProvider
   ) {
-    this.user = this.authProvider.currentUser;
+    this.user = this.authProvider.currentProviderData();
   }
 
   signOut() {
-    let loading = this.miscProvider.createLoading('Saindo...');
+    const loading = this.miscProvider.createLoading('Saindo...');
     //Volta para a pagina de login
     this.authProvider.signOut().then(success => {
       this.navCtrl.setRoot('LoginPage');
@@ -39,4 +39,5 @@ export class ContaComponent {
       loading.dismiss();
     });
   }
+  
 }

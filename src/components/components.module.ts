@@ -3,13 +3,10 @@ import { IonicModule } from 'ionic-angular';
 
 //Components
 import { ContaComponent } from './conta/conta';
-import { ErrorFeedbackComponent } from './error-feedback/error-feedback';
 
 @NgModule({
-	declarations: [ContaComponent,
-		ErrorFeedbackComponent],
+	declarations: [ContaComponent],
 	imports: [IonicModule],
-	exports: [ContaComponent,
-		ErrorFeedbackComponent]
+	exports: [ContaComponent]
 })
 export class ComponentsModule { }

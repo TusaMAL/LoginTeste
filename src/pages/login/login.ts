@@ -1,3 +1,4 @@
+import { DocumentViewer } from '@ionic-native/document-viewer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +19,8 @@ export class LoginPage {
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
     private authProvider: AuthProvider,
-    private miscProvider: MiscProvider
+    private miscProvider: MiscProvider,
+    private document: DocumentViewer
   ) {
     //Form Validations
     this.authForm = formBuilder.group({
@@ -38,6 +40,10 @@ export class LoginPage {
     } else {
       this.formFieldValidation(this.authForm);
     }
+  }
+
+  pdf(){
+    this.document.viewDocument('assets/img/BAND_BT_0150021081_853184_1.pdf', 'application/pdf', null);
   }
 
   //To focus the required fields when form isn't valid
